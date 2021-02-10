@@ -12,6 +12,7 @@ HunterGate(
 project(datamerger LANGUAGES C CXX)
 
 hunter_add_package(GTest)
+hunter_add_package(cxxopts)
 
 # Add support to c++17
 set(CMAKE_CXX_STANDARD 17)
