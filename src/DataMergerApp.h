@@ -8,17 +8,16 @@
 #define DATAMERGERAPP_H
 
 namespace datamerger {
-  class DataMergerApp
-  {
-  public:
-    DataMergerApp();
-    ~DataMergerApp();
+class DataMergerApp {
+ public:
+  DataMergerApp();
+  ~DataMergerApp();
 
-    int mergeIt();
+  int mergeIt();
 
-  private:
-    /* data */
-  };
-}
+ private:
+  /* data */
+};
+}  // namespace datamerger
 
 #endif /* end of include guard: DATAMERGERAPP_H */
