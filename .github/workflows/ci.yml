@@ -1,0 +1,36 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      - uses: mstachniuk/ci-skip@v1
+        with:
+          commit-filter: '[skip ci]'
+
+      - name: Cache hunter files
+        if: ${{ env.CI_SKIP == 'false' }}
+        id: cache-hunter
+        uses: actions/cache@v2
+        with:
+          path: ~/.hunter
+          key: ${{ runner.os }}-hunter
+
+      - name: Build and test
+        if: ${{ env.CI_SKIP == 'false' }}
+        run: |
+          cmake . -B_builds
+          cmake --build _builds
+          make -C _builds/ test
