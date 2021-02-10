@@ -8,8 +8,12 @@
 
 using namespace datamerger;
 
-DataMergerApp::DataMergerApp() {}
+DataMergerApp::DataMergerApp() {
+}
 
-DataMergerApp::~DataMergerApp() {}
+DataMergerApp::~DataMergerApp() {
+}
 
-int DataMergerApp::mergeIt() { return 1; }
+int DataMergerApp::mergeIt() {
+  return 1;
+}
