@@ -4,6 +4,6 @@
 using namespace datamerger;
 
 TEST(Numbers, DataMergerAppOk) {
-  DataMergerApp app;
-  EXPECT_EQ(1, app.mergeIt());
+  DataMergerApp app("mainFile");
+  EXPECT_EQ(true, app.processMap("mapFile"));
 }

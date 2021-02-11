@@ -6,16 +6,13 @@
 using namespace std;
 using namespace datamerger;
 using namespace csv;
+using namespace cxxopts;
 
 int main(int argc, char* argv[]) {
-  DataMergerApp app;
-  app.mergeIt();
-
-  cxxopts::Options options("datamerger", "Merge data");
+  Options options("datamerger", "Merge data");
   options.add_options()("h,help", "print this help")(
-      "main", "main file", cxxopts::value<std::string>())(
-      "references", "mapping files",
-      cxxopts::value<std::vector<std::string>>());
+      "main", "main file", value<string>())("references", "mapping files",
+                                            value<vector<string>>());
   options.parse_positional({"main", "references"});
 
   if (argc == 1) {
@@ -30,13 +27,13 @@ int main(int argc, char* argv[]) {
   }
 
   if (result.count("main")) {
-    cout << "main: " << result["main"].as<std::string>() << endl;
-  }
-
-  if (result.count("references")) {
-    for (auto& reference :
-         result["references"].as<std::vector<std::string>>()) {
-      cout << "reference: " << reference << endl;
+    cout << "main: " << result["main"].as<string>() << endl;
+    DataMergerApp app(result["main"].as<string>());
+    if (result.count("references")) {
+      for (auto& reference : result["references"].as<vector<string>>()) {
+        cout << "reference: " << reference << endl;
+        app.processMap(reference);
+      }
     }
   }
 

@@ -7,16 +7,18 @@
 #ifndef DATAMERGERAPP_H
 #define DATAMERGERAPP_H
 
+#include <string>
+
 namespace datamerger {
 class DataMergerApp {
  public:
-  DataMergerApp();
+  DataMergerApp(std::string);
   ~DataMergerApp();
 
-  int mergeIt();
+  bool processMap(std::string);
 
  private:
-  /* data */
+  std::string mainFile;
 };
 }  // namespace datamerger
 
