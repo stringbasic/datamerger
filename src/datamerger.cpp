@@ -1,9 +1,11 @@
 #include <iostream>
 #include "DataMergerApp.h"
+#include "csv.hpp"
 #include "cxxopts.hpp"
 
 using namespace std;
 using namespace datamerger;
+using namespace csv;
 
 int main(int argc, char *argv[]) {
   DataMergerApp app;
@@ -22,4 +24,6 @@ int main(int argc, char *argv[]) {
     cout << options.help({""}) << endl;
     exit(0);
   }
+
+  CSVRow row;
 }

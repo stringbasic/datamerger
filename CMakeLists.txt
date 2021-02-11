@@ -11,8 +11,10 @@ HunterGate(
 
 project(datamerger LANGUAGES C CXX)
 
+# Dependencies
 hunter_add_package(GTest)
 hunter_add_package(cxxopts)
+add_subdirectory(lib/csv-parser)
 
 # Add support to c++17
 set(CMAKE_CXX_STANDARD 17)
