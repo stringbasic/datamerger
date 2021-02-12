@@ -22,19 +22,27 @@ DataMergerApp::~DataMergerApp() {
 
 bool DataMergerApp::processMap(string mapFile) {
   if (mapFile == "mapFile") return true;
-  CSVReader reader(this->mainFile);
+  CSVReader mainReader(this->mainFile);
+  CSVReader mapReader(mapFile);
 
-  for (auto& column : reader.get_col_names()) {
-    cout << "C: " << column << endl;
+  string mappedColumn;
+
+  for (auto& mainC : mainReader.get_col_names()) {
+    cout << "main C: " << mainC << endl;
+    for (auto& mapC : mapReader.get_col_names()) {
+      cout << "map C: " << mapC << endl;
+      if (mainC == mapC) {
+        cout << "mapped column: " << mapC << endl;
+        mappedColumn = mapC;
+      }
+    }
   }
 
-  for (CSVRow& row : reader) {  // Input iterator
-    for (CSVField& field : row) {
-      // By default, get<>() produces a std::string.
-      // A more efficient get<string_view>() is also available, where the
-      // resulting string_view is valid as long as the parent CSVRow is alive
-      cout << "F: " << field.get<>() << endl;
+  for (CSVRow& mainRow : mainReader) {  // Input iterator
+    for (CSVField& field : mainRow) {
+      cout << " F: " << field.get<>();
     }
+    cout << endl;
   }
 
   return true;
