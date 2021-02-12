@@ -6,6 +6,7 @@
 
 #include "DataMergerApp.h"
 #include <iostream>
+#include <list>
 #include <string>
 #include "csv.hpp"
 
@@ -23,24 +24,48 @@ DataMergerApp::~DataMergerApp() {
 bool DataMergerApp::processMap(string mapFile) {
   if (mapFile == "mapFile") return true;
   CSVReader mainReader(this->mainFile);
-  CSVReader mapReader(mapFile);
 
-  string mappedColumn;
+  int mainMappedColumn = -1;
+  int mapMappedColumn = -1;
 
+  int i = 0, j = 0;
+  int lastIndex = mainReader.get_col_names().size() - 1;
   for (auto& mainC : mainReader.get_col_names()) {
-    cout << "main C: " << mainC << endl;
+    CSVReader mapReader(mapFile);
+    cout << mainC << ",";
+    j = 0;
     for (auto& mapC : mapReader.get_col_names()) {
-      cout << "map C: " << mapC << endl;
       if (mainC == mapC) {
-        cout << "mapped column: " << mapC << endl;
-        mappedColumn = mapC;
+        mainMappedColumn = i;
+        mapMappedColumn = j;
+      } else if (lastIndex == i) {
+        cout << mapC << ",";
       }
+      j++;
     }
+    i++;
   }
+  cout << endl;
 
-  for (CSVRow& mainRow : mainReader) {  // Input iterator
+  for (CSVRow& mainRow : mainReader) {
+    CSVReader mapReader(mapFile);
+    int columnIndex = 0;
     for (CSVField& field : mainRow) {
-      cout << " F: " << field.get<>();
+      if (mainMappedColumn == columnIndex) {
+        cout << field.get<>() << ",";
+        for (auto& mapRow : mapReader) {
+          if (mapRow[mapMappedColumn].get<string>() == field.get<>()) {
+            int mapIndex = 0;
+            for (auto& mapField : mapRow) {
+              if (mapIndex != mapMappedColumn) cout << mapField.get<>() << ",";
+              mapIndex++;
+            }
+          }
+        }
+      } else {
+        cout << field.get<>() << ",";
+      }
+      columnIndex++;
     }
     cout << endl;
   }
