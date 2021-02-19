@@ -8,6 +8,7 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include "DataMap.h"
 #include "csv.hpp"
 
 using namespace std;
@@ -29,6 +30,7 @@ bool DataMergerApp::processMap(string mapFile) {
   int mainMappedColumn = -1;
   int mapMappedColumn = -1;
   list<string> allColumns;
+  string mappedColumnName;
 
   int i = 0, j = 0;
   int lastIndex = mainReader.get_col_names().size() - 1;
@@ -40,6 +42,7 @@ bool DataMergerApp::processMap(string mapFile) {
       if (mainC == mapC) {
         mainMappedColumn = i;
         mapMappedColumn = j;
+        mappedColumnName = mainC;
       } else if (lastIndex == i) {
         allColumns.push_back(mapC);
       }
@@ -48,30 +51,25 @@ bool DataMergerApp::processMap(string mapFile) {
     i++;
   }
 
+  DataMap dMap(mappedColumnName, mapMappedColumn);
+  for (auto& mapRow : CSVReader(mapFile)) {
+    dMap.addDataRow(mapRow);
+  }
+
   output << allColumns;
 
   for (CSVRow& mainRow : mainReader) {
     CSVReader mapReader(mapFile);
     list<string> allFields;
-    int columnIndex = 0;
     for (CSVField& field : mainRow) {
-      if (mainMappedColumn == columnIndex) {
-        allFields.push_back(field.get<string>());
-        for (auto& mapRow : mapReader) {
-          if (mapRow[mapMappedColumn].get<string>() == field.get<>()) {
-            int mapIndex = 0;
-            for (auto& mapField : mapRow) {
-              if (mapIndex != mapMappedColumn) {
-                allFields.push_back(mapField.get<string>());
-              }
-              mapIndex++;
-            }
-          }
-        }
-      } else {
-        allFields.push_back(field.get<string>());
+      allFields.push_back(field.get<string>());
+    }
+    auto mappedValue =
+        dMap.getMappedValue(mainRow[mainMappedColumn].get<string>());
+    if (mappedValue.has_value()) {
+      for (auto& val : *mappedValue) {
+        allFields.push_back(val);
       }
-      columnIndex++;
     }
     output << allFields;
   }
