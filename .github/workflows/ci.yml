@@ -34,4 +34,4 @@ jobs:
         run: |
           cmake . -B_builds
           cmake --build _builds
-          make -C _builds/ test
+          make -C _builds/ test ARGS="-V"
