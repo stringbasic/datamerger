@@ -15,7 +15,6 @@ class DataMergerApp {
  public:
   DataMergerApp(std::string, std::ostream&);
   DataMergerApp(std::string);
-  ~DataMergerApp();
 
   bool processMap(std::string);
 

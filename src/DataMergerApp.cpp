@@ -24,9 +24,6 @@ DataMergerApp::DataMergerApp(string mainFile)
     : mainFile(mainFile), outStream(cout) {
 }
 
-DataMergerApp::~DataMergerApp() {
-}
-
 bool DataMergerApp::processMap(string mapFile) {
   CSVReader mainReader(this->mainFile);
   DelimWriter<ostream, ';', '"'> output(this->outStream);
