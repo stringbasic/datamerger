@@ -34,6 +34,6 @@ vector<string> DataMap::getMappedValue(const string& value) {
   if (index != this->data.end()) {
     return index->second;
   }
-  // return vector<string>(this->maxSize, "");
+
   return {this->maxSize, ""};
 }
