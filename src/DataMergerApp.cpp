@@ -7,6 +7,7 @@
 #include "DataMergerApp.h"
 #include <iostream>
 #include <list>
+#include <sstream>
 #include <string>
 #include "DataMap.h"
 #include "csv.hpp"
@@ -15,17 +16,20 @@ using namespace std;
 using namespace datamerger;
 using namespace csv;
 
-DataMergerApp::DataMergerApp(string mainFile) {
-  this->mainFile = mainFile;
+DataMergerApp::DataMergerApp(string mainFile, ostream& outStream)
+    : mainFile(mainFile), outStream(outStream) {
+}
+
+DataMergerApp::DataMergerApp(string mainFile)
+    : mainFile(mainFile), outStream(cout) {
 }
 
 DataMergerApp::~DataMergerApp() {
 }
 
 bool DataMergerApp::processMap(string mapFile) {
-  if (mapFile == "mapFile") return true;
   CSVReader mainReader(this->mainFile);
-  DelimWriter<ostream, ';', '"'> output(cout);
+  DelimWriter<ostream, ';', '"'> output(this->outStream);
 
   int mainMappedColumn = -1;
   int mapMappedColumn = -1;
