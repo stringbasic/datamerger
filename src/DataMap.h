@@ -8,7 +8,6 @@
 #define DATAMAP_H
 
 #include <map>
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -20,10 +19,11 @@ class DataMap {
   void addDataRow(const std::vector<std::string>&);
   const std::string& getColumnName();
   const int& getColumnIndex();
-  std::optional<std::vector<std::string>> getMappedValue(const std::string&);
+  std::vector<std::string> getMappedValue(const std::string&);
 
  private:
   int columnIndex;
+  std::vector<std::string>::size_type maxSize;
   std::string columnName;
   std::map<std::string, std::vector<std::string>> data;
 };

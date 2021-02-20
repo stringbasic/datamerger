@@ -70,10 +70,8 @@ bool DataMergerApp::processMap(string mapFile) {
     }
     auto mappedValue =
         dMap.getMappedValue(mainRow[mainMappedColumn].get<string>());
-    if (mappedValue.has_value()) {
-      for (auto& val : *mappedValue) {
-        allFields.push_back(val);
-      }
+    for (auto& val : mappedValue) {
+      allFields.push_back(val);
     }
     output << allFields;
   }

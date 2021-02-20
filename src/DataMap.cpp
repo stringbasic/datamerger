@@ -9,9 +9,8 @@
 using namespace datamerger;
 using namespace std;
 
-DataMap::DataMap(string columnName, int columnIndex) {
-  this->columnName = columnName;
-  this->columnIndex = columnIndex;
+DataMap::DataMap(string columnName, int columnIndex)
+    : columnName(columnName), columnIndex(columnIndex), maxSize(0) {
 }
 
 const string& DataMap::getColumnName() {
@@ -25,14 +24,16 @@ const int& DataMap::getColumnIndex() {
 void DataMap::addDataRow(const vector<string>& row) {
   vector<string> newrow(row);
   newrow.erase(newrow.begin() + this->columnIndex);
+  if (newrow.size() > this->maxSize) this->maxSize = newrow.size();
   this->data.insert(
       pair<string, vector<string>>(row[this->columnIndex], newrow));
 }
 
-optional<vector<string>> DataMap::getMappedValue(const string& value) {
+vector<string> DataMap::getMappedValue(const string& value) {
   auto index = this->data.find(value);
   if (index != this->data.end()) {
     return index->second;
   }
-  return {};
+  // return vector<string>(this->maxSize, "");
+  return {this->maxSize, ""};
 }
