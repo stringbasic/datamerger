@@ -9,6 +9,7 @@
 #include <list>
 #include <sstream>
 #include <string>
+#include "ColumnMap.h"
 #include "DataMap.h"
 #include "csv.hpp"
 
@@ -26,47 +27,26 @@ DataMergerApp::DataMergerApp(string mainFile)
 
 bool DataMergerApp::processMap(string mapFile) {
   CSVReader mainReader(this->mainFile);
+  CSVReader mapReader(mapFile);
   DelimWriter<ostream, ';', '"'> output(this->outStream);
 
-  int mainMappedColumn = -1;
-  int mapMappedColumn = -1;
-  list<string> allColumns;
-  string mappedColumnName;
+  ColumnMap cMap(mainReader.get_col_names());
+  auto mappedColumn = cMap.getMappedColumn(mapReader.get_col_names());
 
-  int i = 0, j = 0;
-  int lastIndex = mainReader.get_col_names().size() - 1;
-  for (auto& mainC : mainReader.get_col_names()) {
-    CSVReader mapReader(mapFile);
-    allColumns.push_back(mainC);
-    j = 0;
-    for (auto& mapC : mapReader.get_col_names()) {
-      if (mainC == mapC) {
-        mainMappedColumn = i;
-        mapMappedColumn = j;
-        mappedColumnName = mainC;
-      } else if (lastIndex == i) {
-        allColumns.push_back(mapC);
-      }
-      j++;
-    }
-    i++;
-  }
-
-  DataMap dMap(mappedColumnName, mapMappedColumn);
-  for (auto& mapRow : CSVReader(mapFile)) {
+  DataMap dMap(mappedColumn.columnName, mappedColumn.mapIndex);
+  for (auto& mapRow : mapReader) {
     dMap.addDataRow(mapRow);
   }
 
-  output << allColumns;
+  output << cMap.getAllColumns();
 
   for (CSVRow& mainRow : mainReader) {
-    CSVReader mapReader(mapFile);
     list<string> allFields;
     for (CSVField& field : mainRow) {
       allFields.push_back(field.get<string>());
     }
     auto mappedValue =
-        dMap.getMappedValue(mainRow[mainMappedColumn].get<string>());
+        dMap.getMappedValue(mainRow[mappedColumn.mainIndex].get<string>());
     for (auto& val : mappedValue) {
       allFields.push_back(val);
     }

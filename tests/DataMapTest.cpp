@@ -3,8 +3,8 @@
 #include <vector>
 #include "DataMap.h"
 
-using namespace datamerger;
 using namespace std;
+using namespace datamerger;
 
 TEST(DataMapSuite, Constructor) {
   DataMap dMap("columnMapped", 2);

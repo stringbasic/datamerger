@@ -6,6 +6,7 @@ add_executable(datamerger_tests
   ${tests_SOURCES}
   ../src/DataMergerApp.cpp
   ../src/DataMap.cpp
+  ../src/ColumnMap.cpp
 )
 
 hunter_add_package(GTest)
