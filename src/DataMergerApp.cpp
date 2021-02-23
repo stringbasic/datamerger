@@ -5,10 +5,12 @@
  */
 
 #include "DataMergerApp.h"
+
 #include <iostream>
 #include <list>
 #include <sstream>
 #include <string>
+
 #include "ColumnMap.h"
 #include "DataMap.h"
 #include "csv.hpp"

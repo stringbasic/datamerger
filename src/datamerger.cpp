@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "DataMergerApp.h"
 #include "csv.hpp"
 #include "cxxopts.hpp"

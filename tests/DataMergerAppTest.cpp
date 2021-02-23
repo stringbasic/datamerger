@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
+
 #include <fstream>
 #include <sstream>
+
 #include "DataMergerApp.h"
 
 using namespace std;

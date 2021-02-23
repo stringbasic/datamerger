@@ -5,6 +5,7 @@
  */
 
 #include "ColumnMap.h"
+
 #include <functional>
 #include <iostream>
 

@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "ColumnMap.h"
 
 using namespace std;

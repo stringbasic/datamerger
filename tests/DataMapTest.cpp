@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
+
 #include <string>
 #include <vector>
+
 #include "DataMap.h"
 
 using namespace std;
