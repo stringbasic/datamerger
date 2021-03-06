@@ -1,12 +1,10 @@
 #include <iostream>
 
 #include "DataMergerApp.h"
-#include "csv.hpp"
 #include "cxxopts.hpp"
 
 using namespace std;
 using namespace datamerger;
-using namespace csv;
 using namespace cxxopts;
 
 int main(int argc, char* argv[]) {
@@ -37,6 +35,4 @@ int main(int argc, char* argv[]) {
       }
     }
   }
-
-  CSVRow row;
 }
