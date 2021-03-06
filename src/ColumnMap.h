@@ -22,7 +22,7 @@ struct ColumnMapInfo {
 class ColumnMap {
  public:
   ColumnMap(const std::vector<std::string>&);
-  const ColumnMapInfo getMappedColumn(const std::vector<std::string>&);
+  ColumnMapInfo getMappedColumn(const std::vector<std::string>&);
   std::vector<std::string> getAllColumns();
 
  private:

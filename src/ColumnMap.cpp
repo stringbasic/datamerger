@@ -7,7 +7,6 @@
 #include "ColumnMap.h"
 
 #include <functional>
-#include <iostream>
 
 using namespace std;
 using namespace datamerger;
@@ -16,11 +15,11 @@ ColumnMap::ColumnMap(const vector<string>& mainColumns)
     : mainColumns(mainColumns) {
 }
 
-const ColumnMapInfo ColumnMap::getMappedColumn(
+ColumnMapInfo ColumnMap::getMappedColumn(
     const vector<string>& mapColumns) {
-  int i = 0, j = 0;
-  int lastIndex = this->mainColumns.size() - 1;
-  string mappedColumnName("");
+  int i = 0, j;
+  auto lastIndex = this->mainColumns.size() - 1;
+  string mappedColumnName;
   int mainIndex = -1;
   int mapIndex = -1;
   for (auto& mainC : this->mainColumns) {

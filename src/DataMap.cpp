@@ -10,14 +10,14 @@ using namespace datamerger;
 using namespace std;
 
 DataMap::DataMap(string columnName, int columnIndex)
-    : columnName(columnName), columnIndex(columnIndex), maxSize(0) {
+    : columnName(move(columnName)), columnIndex(columnIndex), maxSize(0) {
 }
 
 const string& DataMap::getColumnName() {
   return this->columnName;
 }
 
-const int& DataMap::getColumnIndex() {
+const int& DataMap::getColumnIndex() const {
   return this->columnIndex;
 }
 

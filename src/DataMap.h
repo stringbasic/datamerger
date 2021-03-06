@@ -18,7 +18,7 @@ class DataMap {
 
   void addDataRow(const std::vector<std::string>&);
   const std::string& getColumnName();
-  const int& getColumnIndex();
+  const int& getColumnIndex() const;
   std::vector<std::string> getMappedValue(const std::string&);
 
  private:
