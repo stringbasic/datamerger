@@ -15,8 +15,7 @@ ColumnMap::ColumnMap(const vector<string>& mainColumns)
     : mainColumns(mainColumns) {
 }
 
-ColumnMapInfo ColumnMap::getMappedColumn(
-    const vector<string>& mapColumns) {
+ColumnMapInfo ColumnMap::getMappedColumn(const vector<string>& mapColumns) {
   int i = 0, j;
   auto lastIndex = this->mainColumns.size() - 1;
   string mappedColumnName;
