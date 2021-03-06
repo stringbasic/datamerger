@@ -16,7 +16,7 @@ class DataMergerApp {
   DataMergerApp(std::string, std::ostream&);
   DataMergerApp(std::string);
 
-  bool processMap(std::string);
+  bool processMap(const std::string&);
 
  private:
   std::string mainFile;

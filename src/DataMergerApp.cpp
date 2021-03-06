@@ -8,8 +8,8 @@
 
 #include <iostream>
 #include <list>
-#include <sstream>
 #include <string>
+#include <utility>
 
 #include "ColumnMap.h"
 #include "DataMap.h"
@@ -20,14 +20,14 @@ using namespace datamerger;
 using namespace csv;
 
 DataMergerApp::DataMergerApp(string mainFile, ostream& outStream)
-    : mainFile(mainFile), outStream(outStream) {
+    : mainFile(move(mainFile)), outStream(outStream) {
 }
 
 DataMergerApp::DataMergerApp(string mainFile)
-    : mainFile(mainFile), outStream(cout) {
+    : mainFile(move(mainFile)), outStream(cout) {
 }
 
-bool DataMergerApp::processMap(string mapFile) {
+bool DataMergerApp::processMap(const string& mapFile) {
   CSVReader mainReader(this->mainFile);
   CSVReader mapReader(mapFile);
   DelimWriter<ostream, ';', '"'> output(this->outStream);
