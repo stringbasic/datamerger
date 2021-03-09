@@ -31,7 +31,8 @@ int main(int argc, char* argv[]) {
     if (result.count("references")) {
       for (auto& reference : result["references"].as<vector<string>>()) {
         cout << "reference: " << reference << endl;
-        app.processMap(reference);
+        app.processHeader(reference);
+        app.generateOuput();
       }
     }
   }

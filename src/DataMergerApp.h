@@ -8,7 +8,11 @@
 #define DATAMERGERAPP_H
 
 #include <iostream>
+#include <memory>
 #include <string>
+
+#include "ColumnMap.h"
+#include "DataMap.h"
 
 namespace datamerger {
 class DataMergerApp {
@@ -16,11 +20,14 @@ class DataMergerApp {
   DataMergerApp(std::string, std::ostream&);
   DataMergerApp(std::string);
 
-  bool processMap(const std::string&);
+  bool processHeader(const std::string&);
+  void generateOuput();
 
  private:
   std::string mainFile;
   std::ostream& outStream;
+  std::unique_ptr<ColumnMap> columnMap;
+  std::vector<std::pair<ColumnMapInfo, DataMap>> dataMaps;
 };
 }  // namespace datamerger
 

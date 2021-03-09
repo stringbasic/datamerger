@@ -22,11 +22,11 @@ const int& DataMap::getColumnIndex() const {
 }
 
 void DataMap::addDataRow(const vector<string>& row) {
-  vector<string> newrow(row);
-  newrow.erase(newrow.begin() + this->columnIndex);
-  if (newrow.size() > this->maxSize) this->maxSize = newrow.size();
+  vector<string> newRow(row);
+  newRow.erase(newRow.begin() + this->columnIndex);
+  if (newRow.size() > this->maxSize) this->maxSize = newRow.size();
   this->data.insert(
-      pair<string, vector<string>>(row[this->columnIndex], newrow));
+      pair<string, vector<string>>(row[this->columnIndex], newRow));
 }
 
 vector<string> DataMap::getMappedValue(const string& value) {
