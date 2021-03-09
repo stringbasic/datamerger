@@ -12,7 +12,7 @@ TEST(Numbers, DataMergerAppOk) {
   ostringstream output;
   DataMergerApp app("../../tests/test1-input1.csv", output);
   EXPECT_EQ(true, app.processHeader("../../tests/test1-input2.csv"));
-  app.generateOuput();
+  app.generateOutput();
   ifstream expectedFile("../../tests/test1-output.csv", std::ios::in);
   stringstream expectedBuffer;
   expectedBuffer << expectedFile.rdbuf();

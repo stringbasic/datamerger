@@ -30,7 +30,6 @@ DataMergerApp::DataMergerApp(string mainFile)
 bool DataMergerApp::processHeader(const string& mapFile) {
   CSVReader mainReader(this->mainFile);
   CSVReader mapReader(mapFile);
-  DelimWriter<ostream, ';', '"'> output(this->outStream);
 
   if (!columnMap) {
     columnMap = make_unique<ColumnMap>(mainReader.get_col_names());
@@ -46,7 +45,7 @@ bool DataMergerApp::processHeader(const string& mapFile) {
   return true;
 }
 
-void DataMergerApp::generateOuput() {
+void DataMergerApp::generateOutput() {
   CSVReader mainReader(this->mainFile);
   DelimWriter<ostream, ';', '"'> output(this->outStream);
 

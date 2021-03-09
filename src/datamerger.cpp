@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
       for (auto& reference : result["references"].as<vector<string>>()) {
         cout << "reference: " << reference << endl;
         app.processHeader(reference);
-        app.generateOuput();
+        app.generateOutput();
       }
     }
   }

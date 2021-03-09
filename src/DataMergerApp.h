@@ -21,7 +21,7 @@ class DataMergerApp {
   DataMergerApp(std::string);
 
   bool processHeader(const std::string&);
-  void generateOuput();
+  void generateOutput();
 
  private:
   std::string mainFile;
