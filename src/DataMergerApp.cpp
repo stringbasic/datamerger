@@ -51,18 +51,18 @@ void DataMergerApp::generateOutput() {
 
   output << columnMap->getAllColumns();
 
-  for (auto dataMap : dataMaps) {
-    for (CSVRow& mainRow : mainReader) {
-      list<string> allFields;
-      for (CSVField& field : mainRow) {
-        allFields.push_back(field.get<string>());
-      }
+  for (CSVRow& mainRow : mainReader) {
+    list<string> allFields;
+    for (CSVField& field : mainRow) {
+      allFields.push_back(field.get<string>());
+    }
+    for (auto dataMap : dataMaps) {
       auto mappedValue = dataMap.second.getMappedValue(
           mainRow[dataMap.first.mainIndex].get<string>());
       for (auto& val : mappedValue) {
         allFields.push_back(val);
       }
-      output << allFields;
     }
+    output << allFields;
   }
 }
