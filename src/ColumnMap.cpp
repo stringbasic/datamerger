@@ -16,24 +16,30 @@ ColumnMap::ColumnMap(const vector<string>& mainColumns)
 }
 
 ColumnMapInfo ColumnMap::getMappedColumn(const vector<string>& mapColumns) {
-  int i = 0, j;
-  auto lastIndex = this->mainColumns.size() - 1;
   string mappedColumnName;
-  int mainIndex = -1;
-  int mapIndex = -1;
+  int mainIndex = 0;
+  int mapIndex = 0;
+  bool found = false;
+
   for (auto& mainC : this->mainColumns) {
-    j = 0;
+    mapIndex = 0;
     for (auto& mapC : mapColumns) {
       if (mainC == mapC) {
         mappedColumnName = mapC;
-        mainIndex = i;
-        mapIndex = j;
-      } else if (lastIndex == i) {
-        this->extraColumns.push_back(mapC);
+        found = true;
+        break;
       }
-      j++;
+      mapIndex++;
     }
-    i++;
+    if (!found)
+      mainIndex++;
+    else
+      break;
+  }
+
+  for (auto& mapC : mapColumns) {
+    if (mappedColumnName == mapC) continue;
+    this->extraColumns.push_back(mapC);
   }
 
   return {mainIndex, mapIndex, mappedColumnName};
