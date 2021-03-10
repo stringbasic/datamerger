@@ -1,0 +1,5 @@
+id_item;name;id_type;id_location;type_name;location
+1;radio;2;1;communication;Paris
+2;phone;2;1;communication;Paris
+3;clock;3;2;electrical;London
+4;chair;1;2;furniture;London
