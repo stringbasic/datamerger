@@ -9,7 +9,5 @@ add_executable(datamerger_tests
   ../src/ColumnMap.cpp
 )
 
-hunter_add_package(GTest)
-find_package(GTest CONFIG REQUIRED)
 target_link_libraries(datamerger_tests PRIVATE GTest::gtest_main)
 add_test(datamerger datamerger_tests)

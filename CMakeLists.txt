@@ -1,25 +1,30 @@
 cmake_minimum_required(VERSION 3.2)
 
-# Emulate HunterGate:
-# * https://github.com/hunter-packages/gate
-include("cmake/HunterGate.cmake")
-
-HunterGate(
-  URL "https://github.com/cpp-pm/hunter/archive/v0.23.234.tar.gz"
-  SHA1 "b67e11d7e9ee503e9f6e1b45eb1ef7bf2fb31279"
-)
-
 project(datamerger LANGUAGES C CXX)
 
-# Dependencies
-hunter_add_package(GTest)
-hunter_add_package(cxxopts)
 add_subdirectory(lib/csv-parser)
 
 # Add support to c++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG release-1.12.1
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+FetchContent_Declare(
+  cxxopts
+  GIT_REPOSITORY https://github.com/jarro2783/cxxopts.git
+  GIT_TAG v3.0.0
+)
+FetchContent_MakeAvailable(cxxopts)
 
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fprofile-arcs -ftest-coverage")
 
