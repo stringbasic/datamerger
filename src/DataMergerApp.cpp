@@ -15,24 +15,23 @@
 #include "DataMap.h"
 #include "csv.hpp"
 
-using namespace std;
 using namespace datamerger;
 using namespace csv;
 
-DataMergerApp::DataMergerApp(string mainFile, ostream& outStream)
-    : mainFile(move(mainFile)), outStream(outStream), dataMaps({}) {
+DataMergerApp::DataMergerApp(std::string mainFile, std::ostream& outStream)
+    : mainFile(std::move(mainFile)), outStream(outStream), dataMaps({}) {
 }
 
-DataMergerApp::DataMergerApp(string mainFile)
-    : mainFile(move(mainFile)), outStream(cout), dataMaps({}) {
+DataMergerApp::DataMergerApp(std::string mainFile)
+    : mainFile(std::move(mainFile)), outStream(std::cout), dataMaps({}) {
 }
 
-bool DataMergerApp::processHeader(const string& mapFile) {
+bool DataMergerApp::processHeader(const std::string& mapFile) {
   CSVReader mainReader(this->mainFile);
   CSVReader mapReader(mapFile);
 
   if (!columnMap) {
-    columnMap = make_unique<ColumnMap>(mainReader.get_col_names());
+    columnMap = std::make_unique<ColumnMap>(mainReader.get_col_names());
   }
   auto mappedColumn = columnMap->getMappedColumn(mapReader.get_col_names());
 
@@ -40,25 +39,25 @@ bool DataMergerApp::processHeader(const string& mapFile) {
   for (auto& mapRow : mapReader) {
     dMap.addDataRow(mapRow);
   }
-  dataMaps.push_back(move(make_pair(mappedColumn, dMap)));
+  dataMaps.push_back(std::move(std::make_pair(mappedColumn, dMap)));
 
   return true;
 }
 
 void DataMergerApp::generateOutput() {
   CSVReader mainReader(this->mainFile);
-  DelimWriter<ostream, ';', '"'> output(this->outStream);
+  DelimWriter<std::ostream, ';', '"'> output(this->outStream);
 
   output << columnMap->getAllColumns();
 
   for (CSVRow& mainRow : mainReader) {
-    list<string> allFields;
+    std::list<std::string> allFields;
     for (CSVField& field : mainRow) {
-      allFields.push_back(field.get<string>());
+      allFields.push_back(field.get<std::string>());
     }
     for (auto dataMap : dataMaps) {
       auto mappedValue = dataMap.second.getMappedValue(
-          mainRow[dataMap.first.mainIndex].get<string>());
+          mainRow[dataMap.first.mainIndex].get<std::string>());
       for (auto& val : mappedValue) {
         allFields.push_back(val);
       }

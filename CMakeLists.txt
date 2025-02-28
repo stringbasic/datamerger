@@ -31,3 +31,6 @@ set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fprofile-arcs -ftest-coverage")
 enable_testing()
 add_subdirectory(src out)
 add_subdirectory(tests tests_out)
+
+# Export compilation database
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

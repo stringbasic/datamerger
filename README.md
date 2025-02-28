@@ -7,8 +7,23 @@ Multiple sources data merger
 
 # To compile and test
 
+## Pull submodules
 ```
-cmake . -B_builds
-cmake --build _builds
-make -C _builds/ test
+git submodule update --init --recursive
+```
+
+## build the project
+```
+cmake . -Bbuild
+cmake --build build
+```
+
+## Run tests
+```
+make -C build/ test
+```
+
+## Configure compile commands
+```
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build
 ```
