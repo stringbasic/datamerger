@@ -39,7 +39,7 @@ bool DataMergerApp::processHeader(const std::string& mapFile) {
   for (auto& mapRow : mapReader) {
     dMap.addDataRow(mapRow);
   }
-  dataMaps.push_back(std::move(std::make_pair(mappedColumn, dMap)));
+  dataMaps.push_back(std::make_pair(mappedColumn, dMap));
 
   return true;
 }
